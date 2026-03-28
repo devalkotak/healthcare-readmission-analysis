@@ -1,0 +1,54 @@
+DATASET: UCI Diabetes 130-US Hospitals (1999-2008)
+Source: https://archive.ics.uci.edu/dataset/296/diabetes+130-us+hospitals+for+years+1999-2008
+
+IDENTIFIER COLUMNS (dropped before analysis)
+- encounter_id       : Unique ID for each hospital visit
+- patient_nbr        : Unique patient identifier
+
+PATIENT DEMOGRAPHICS
+- race               : Patient race (Caucasian, AfricanAmerican, Hispanic, Asian, Other)
+- gender             : Male / Female
+- age                : Age bracket in 10-year ranges e.g. [50-60)
+- weight             : Body weight — 97% missing, dropped from analysis
+
+ADMISSION INFO
+- admission_type_id  : Type of admission (1=Emergency, 2=Urgent, 3=Elective, etc.)
+- discharge_disposition_id : Where patient went after discharge (home, transfer, expired, etc.)
+- admission_source_id: Where the referral came from (ER, physician, transfer, etc.)
+
+HOSPITAL STAY
+- time_in_hospital   : Number of days in hospital (1–14)
+- num_lab_procedures : Number of lab tests done during the visit
+- num_procedures     : Number of non-lab procedures performed
+- num_medications    : Number of distinct medications given
+- number_diagnoses   : Number of diagnoses recorded
+
+PRIOR UTILIZATION
+- number_outpatient  : Number of outpatient visits in the year before this encounter
+- number_emergency   : Number of emergency visits in the year before
+- number_inpatient   : Number of inpatient visits in the year before — strong readmission predictor
+
+DIAGNOSIS CODES
+- diag_1             : Primary diagnosis (ICD-9 code)
+- diag_2             : Secondary diagnosis
+- diag_3             : Third diagnosis
+
+MEDICATION COLUMNS (one per drug, value = dose change direction)
+- Each drug column (metformin, insulin, etc.) has values:
+  No       = drug not prescribed
+  Steady   = prescribed, no dose change
+  Up       = dose increased
+  Down     = dose decreased
+
+MEDICATION SUMMARY
+- change             : Was any diabetes medication changed? (Ch = yes, No = no)
+- diabetesMed        : Was any diabetes medication prescribed? (Yes / No)
+
+TARGET VARIABLE
+- readmitted         : <30 = readmitted within 30 days, >30 = readmitted after 30 days, NO = not readmitted
+- readmitted_30      : Derived binary column — 1 if readmitted within 30 days, 0 otherwise
+
+DROPPED COLUMNS
+- weight             : 97% missing
+- payer_code         : 40%+ missing
+- medical_specialty  : 49% missing
